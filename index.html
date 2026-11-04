@@ -3,129 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSA Time Complexity & Big-O Analyzer</title>
+    <title>Big-O Time & Space Complexity Analyzer | Free DSA Tool</title>
+    <meta name="description" content="Calculate and visualize Time Complexity, Big-O notation, and operation count for Data Structures and Algorithms online.">
+    
+    <!-- GOOGLE ADSENSE SCRIPT PLACEHOLDER (Approval ke waqt yahan code paste karein) -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #0f172a;
-            color: #f8fafc;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-        }
-        .container {
-            max-width: 900px;
-            width: 100%;
-            background-color: #1e293b;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-        h1 {
-            color: #38bdf8;
-            margin-bottom: 10px;
-            font-size: 24px;
-        }
-        p.subtitle {
-            color: #94a3b8;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 6px;
-            color: #cbd5e1;
-            font-weight: 600;
-        }
-        select, input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #334155;
-            background-color: #0f172a;
-            color: #38bdf8;
-            font-size: 15px;
-            outline: none;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #0284c7;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        button:hover {
-            background-color: #0369a1;
-        }
-        .result-box {
-            margin-top: 25px;
-            padding: 20px;
-            background-color: #0f172a;
-            border-left: 4px solid #38bdf8;
-            border-radius: 6px;
-            display: none;
-        }
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            background-color: #22c55e;
-            color: #000;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .stat-card {
-            background-color: #1e293b;
-            padding: 15px;
-            border-radius: 6px;
-            text-align: center;
-        }
-        .stat-card h4 {
-            color: #94a3b8;
-            font-size: 12px;
-        }
-        .stat-card p {
-            color: #f8fafc;
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 5px;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; background-color: #1e293b; padding: 25px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        h1 { color: #38bdf8; margin-bottom: 10px; font-size: 26px; }
+        h2 { color: #38bdf8; margin: 25px 0 10px 0; font-size: 20px; border-bottom: 1px solid #334155; padding-bottom: 5px; }
+        p.subtitle { color: #94a3b8; margin-bottom: 20px; font-size: 14px; }
+        nav { display: flex; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+        nav a { color: #94a3b8; text-decoration: none; font-size: 14px; }
+        nav a:hover { color: #38bdf8; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 6px; color: #cbd5e1; font-weight: 600; }
+        select, input { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #334155; background-color: #0f172a; color: #38bdf8; font-size: 15px; outline: none; }
+        button { width: 100%; padding: 12px; background-color: #0284c7; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background-color: #0369a1; }
+        .result-box { margin-top: 25px; padding: 20px; background-color: #0f172a; border-left: 4px solid #38bdf8; border-radius: 6px; display: none; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; background-color: #22c55e; color: #000; font-weight: bold; margin-top: 5px; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+        .stat-card { background-color: #1e293b; padding: 15px; border-radius: 6px; text-align: center; }
+        .stat-card h4 { color: #94a3b8; font-size: 12px; }
+        .stat-card p { color: #f8fafc; font-size: 18px; font-weight: bold; margin-top: 5px; }
+        
+        /* Ad Banner Placeholder Styles */
+        .ad-unit { background-color: #0f172a; border: 1px dashed #334155; text-align: center; padding: 15px; margin: 25px 0; color: #64748b; font-size: 12px; border-radius: 6px; }
+        
+        /* SEO Content Styles */
+        .content-section { margin-top: 30px; color: #cbd5e1; font-size: 15px; }
+        .content-section p { margin-bottom: 12px; }
+        .content-section ul { margin-left: 20px; margin-bottom: 15px; }
+        .content-section li { margin-bottom: 6px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; background-color: #0f172a; }
+        th, td { border: 1px solid #334155; padding: 10px; text-align: left; }
+        th { background-color: #1e293b; color: #38bdf8; }
+        footer { margin-top: 40px; text-align: center; color: #64748b; font-size: 13px; border-top: 1px solid #334155; padding-top: 15px; }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <nav>
+        <a href="#">Home</a>
+        <a href="#about">About Tool</a>
+        <a href="#guide">Big-O Guide</a>
+        <a href="#privacy">Privacy Policy</a>
+    </nav>
+
     <h1>⚡ Big-O Time & Space Complexity Analyzer</h1>
-    <p class="subtitle">Select your algorithm structure and input size ($N$) to calculate exact operations and Big-O notation.</p>
+    <p class="subtitle">Analyze algorithm execution steps, time complexity bounds, and growth rate visualization online.</p>
+
+    <!-- TOP AD BANNER PLACEHOLDER -->
+    <div class="ad-unit">
+        [ Advertisement Space ]
+    </div>
 
     <div class="form-group">
-        <label for="algoType">Algorithm Loop Structure:</label>
+        <label for="algoType">Select Algorithm Loop Structure:</label>
         <select id="algoType">
-            <option value="o1">Single Statement / Direct Access (e.g. Array[i])</option>
-            <option value="ologn">Binary Search / Halving Loop (i = i / 2)</option>
-            <option value="on">Single Loop (for i = 0 to N)</option>
-            <option value="onlogn">Merge Sort / Quick Sort Loop (N * log N)</option>
-            <option value="on2">Nested Loops (for i in N { for j in N })</option>
-            <option value="o2n">Recursive Fibonacci / Subset Generation ($2^N$)</option>
+            <option value="o1">Single Statement / Direct Access (O(1))</option>
+            <option value="ologn">Binary Search / Halving Loop (O(log N))</option>
+            <option value="on">Single Loop (O(N))</option>
+            <option value="onlogn">Merge Sort / Divide & Conquer (O(N log N))</option>
+            <option value="on2">Nested Loops (O(N²))</option>
+            <option value="o2n">Recursive Exponential / Subsets (O(2ⁿ))</option>
         </select>
     </div>
 
@@ -151,10 +97,97 @@
             </div>
             <div class="stat-card">
                 <h4>SCALABILITY SCORE</h4>
-                <p id="scaleScore">9/10</p>
+                <p id="scaleScore">8/10</p>
             </div>
         </div>
     </div>
+
+    <!-- MIDDLE AD BANNER PLACEHOLDER -->
+    <div class="ad-unit">
+        [ Advertisement Space ]
+    </div>
+
+    <!-- SEO & USER CONTENT SECTION (AdSense Approval ke liye zaroori content) -->
+    <div class="content-section">
+        <h2 id="about">About Big-O Time Complexity Analyzer</h2>
+        <p>Understanding algorithm performance is crucial for computer science students, software engineers, and web developers. This interactive Big-O Complexity Calculator helps you evaluate the theoretical execution time and operational growth rate of algorithms based on input size (N).</p>
+        <p>Whether you are designing sorting algorithms, searching binary trees, or analyzing nested loops, this tool computes operational count metrics instantly in your web browser without sending data to external servers.</p>
+
+        <h2 id="guide">Comprehensive Guide to Big-O Notation</h2>
+        <p>Big-O notation is a mathematical classification used in computer science to describe the upper bound of an algorithm's execution time or memory space usage relative to the input size (N). It measures asymptotic efficiency rather than exact wall-clock time.</p>
+
+        <h3>Common Time Complexity Classes Explained</h3>
+        <ul>
+            <li><strong>O(1) - Constant Time:</strong> Execution time remains fixed regardless of input size. Example: Accessing an array element by index or retrieving a key from a hash map.</li>
+            <li><strong>O(log N) - Logarithmic Time:</strong> The operational step count scales logarithmically. Halving problem sets each step makes this extremely efficient. Example: Binary Search.</li>
+            <li><strong>O(N) - Linear Time:</strong> Execution time scales linearly in direct proportion to input size N. Example: Iterating through an unsorted array via a single loop.</li>
+            <li><strong>O(N log N) - Linearithmic Time:</strong> Common in optimized comparison-based sorting algorithms like Merge Sort, Quick Sort, and Heap Sort.</li>
+            <li><strong>O(N²) - Quadratic Time:</strong> Performance degrades rapidly as N grows due to nested iteration over the dataset. Example: Bubble Sort, Insertion Sort, or Selection Sort.</li>
+            <li><strong>O(2ⁿ) - Exponential Time:</strong> Operations double with every increment in input size N. Frequently seen in brute-force recursive solutions like recursive Fibonacci calculations.</li>
+        </ul>
+
+        <h3>Complexity Comparison Reference Table</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Notation</th>
+                    <th>Name</th>
+                    <th>Operations for N = 1,000</th>
+                    <th>Performance Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>O(1)</td>
+                    <td>Constant</td>
+                    <td>1</td>
+                    <td>Excellent</td>
+                </tr>
+                <tr>
+                    <td>O(log N)</td>
+                    <td>Logarithmic</td>
+                    <td>~10</td>
+                    <td>Excellent</td>
+                </tr>
+                <tr>
+                    <td>O(N)</td>
+                    <td>Linear</td>
+                    <td>1,000</td>
+                    <td>Good</td>
+                </tr>
+                <tr>
+                    <td>O(N log N)</td>
+                    <td>Linearithmic</td>
+                    <td>~10,000</td>
+                    <td>Fair</td>
+                </tr>
+                <tr>
+                    <td>O(N²)</td>
+                    <td>Quadratic</td>
+                    <td>1,000,000</td>
+                    <td>Poor</td>
+                </tr>
+                <tr>
+                    <td>O(2ⁿ)</td>
+                    <td>Exponential</td>
+                    <td>1.07 x 10³⁰1</td>
+                    <td>Unusable for Large N</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="privacy">Privacy Policy</h2>
+        <p>We value your privacy. This analyzer runs purely client-side using JavaScript. No user code snippets or numeric inputs are recorded, stored, or sent to any remote backend server.</p>
+    </div>
+
+    <!-- BOTTOM AD BANNER PLACEHOLDER -->
+    <div class="ad-unit">
+        [ Advertisement Space ]
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Big-O Complexity Analyzer Tool. Created for Data Structures & Algorithms Learning.</p>
+    </footer>
 </div>
 
 <script>
@@ -211,7 +244,7 @@ function analyzeComplexity() {
             break;
         case 'o2n':
             bigO = "O(2ⁿ) - Exponential Time";
-            ops = Math.pow(2, Math.min(n, 30)); // Cap for calculation UI display
+            ops = Math.pow(2, Math.min(n, 30));
             speed = "Extremely Slow (Avoid for large N)";
             score = "1 / 10 (Critical)";
             badgeColor = "#ef4444";
