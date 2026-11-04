@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Time Complexity & Big-O Analyzer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background-color: #1e293b;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        h1 {
+            color: #38bdf8;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        p.subtitle {
+            color: #94a3b8;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #334155;
+            background-color: #0f172a;
+            color: #38bdf8;
+            font-size: 15px;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #0369a1;
+        }
+        .result-box {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #0f172a;
+            border-left: 4px solid #38bdf8;
+            border-radius: 6px;
+            display: none;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background-color: #22c55e;
+            color: #000;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .stat-card {
+            background-color: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .stat-card h4 {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+        .stat-card p {
+            color: #f8fafc;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>⚡ Big-O Time & Space Complexity Analyzer</h1>
+    <p class="subtitle">Select your algorithm structure and input size ($N$) to calculate exact operations and Big-O notation.</p>
+
+    <div class="form-group">
+        <label for="algoType">Algorithm Loop Structure:</label>
+        <select id="algoType">
+            <option value="o1">Single Statement / Direct Access (e.g. Array[i])</option>
+            <option value="ologn">Binary Search / Halving Loop (i = i / 2)</option>
+            <option value="on">Single Loop (for i = 0 to N)</option>
+            <option value="onlogn">Merge Sort / Quick Sort Loop (N * log N)</option>
+            <option value="on2">Nested Loops (for i in N { for j in N })</option>
+            <option value="o2n">Recursive Fibonacci / Subset Generation ($2^N$)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="inputN">Input Size (N):</label>
+        <input type="number" id="inputN" value="1000" min="1" max="1000000">
+    </div>
+
+    <button onclick="analyzeComplexity()">Calculate Complexity</button>
+
+    <div class="result-box" id="resultBox">
+        <h3>Analysis Output:</h3>
+        <p>Estimated Big-O Class: <span class="badge" id="bigOBadge">O(N)</span></p>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h4>ESTIMATED OPERATIONS</h4>
+                <p id="opCount">1,000</p>
+            </div>
+            <div class="stat-card">
+                <h4>EXECUTION SPEED CLASS</h4>
+                <p id="speedClass">Fast</p>
+            </div>
+            <div class="stat-card">
+                <h4>SCALABILITY SCORE</h4>
+                <p id="scaleScore">9/10</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function analyzeComplexity() {
+    const type = document.getElementById('algoType').value;
+    const n = parseFloat(document.getElementById('inputN').value);
+
+    if (isNaN(n) || n <= 0) {
+        alert("Please enter a valid input size N");
+        return;
+    }
+
+    let bigO = "";
+    let ops = 0;
+    let speed = "";
+    let score = "";
+    let badgeColor = "#22c55e";
+
+    switch(type) {
+        case 'o1':
+            bigO = "O(1) - Constant Time";
+            ops = 1;
+            speed = "Instant (~0.001 ms)";
+            score = "10 / 10 (Excellent)";
+            badgeColor = "#22c55e";
+            break;
+        case 'ologn':
+            bigO = "O(log N) - Logarithmic Time";
+            ops = Math.ceil(Math.log2(n));
+            speed = "Extremely Fast";
+            score = "9.5 / 10 (Excellent)";
+            badgeColor = "#22c55e";
+            break;
+        case 'on':
+            bigO = "O(N) - Linear Time";
+            ops = n;
+            speed = "Fast";
+            score = "8 / 10 (Good)";
+            badgeColor = "#84cc16";
+            break;
+        case 'onlogn':
+            bigO = "O(N log N) - Linearithmic Time";
+            ops = Math.ceil(n * Math.log2(n));
+            speed = "Moderate";
+            score = "6.5 / 10 (Moderate)";
+            badgeColor = "#eab308";
+            break;
+        case 'on2':
+            bigO = "O(N²) - Quadratic Time";
+            ops = Math.pow(n, 2);
+            speed = "Slow (Warning for large N)";
+            score = "4 / 10 (Poor)";
+            badgeColor = "#f97316";
+            break;
+        case 'o2n':
+            bigO = "O(2ⁿ) - Exponential Time";
+            ops = Math.pow(2, Math.min(n, 30)); // Cap for calculation UI display
+            speed = "Extremely Slow (Avoid for large N)";
+            score = "1 / 10 (Critical)";
+            badgeColor = "#ef4444";
+            break;
+    }
+
+    document.getElementById('bigOBadge').innerText = bigO;
+    document.getElementById('bigOBadge').style.backgroundColor = badgeColor;
+    document.getElementById('opCount').innerText = ops.toLocaleString();
+    document.getElementById('speedClass').innerText = speed;
+    document.getElementById('scaleScore').innerText = score;
+
+    document.getElementById('resultBox').style.display = 'block';
+}
+</script>
+
+</body>
+</html>
